@@ -1,0 +1,337 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "InvalidCategory",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "vehicleId",
+						"type": "uint256"
+					}
+				],
+				"name": "NotOwner",
+				"type": "error"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "vehicleId",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "vehicleId",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "enum Asset.VehicleCategory",
+						"name": "category",
+						"type": "uint8"
+					}
+				],
+				"name": "VehicleRegistered",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "vehicleId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "rentalPrice",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "isAvailable",
+						"type": "bool"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "hasInsurance",
+						"type": "bool"
+					}
+				],
+				"name": "VehicleUpdated",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_vehicleId",
+						"type": "uint256"
+					}
+				],
+				"name": "getVehicle",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "vehicleId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "owner",
+								"type": "address"
+							},
+							{
+								"internalType": "enum Asset.VehicleCategory",
+								"name": "category",
+								"type": "uint8"
+							},
+							{
+								"internalType": "uint256",
+								"name": "rentalPrice",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isAvailable",
+								"type": "bool"
+							},
+							{
+								"internalType": "uint256",
+								"name": "maintenanceDueDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "hasInsurance",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Asset.Vehicle",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_vehicleId",
+						"type": "uint256"
+					}
+				],
+				"name": "isAvailable",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "enum Asset.VehicleCategory",
+						"name": "_category",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_rentalPrice",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_maintenanceDueDate",
+						"type": "uint256"
+					}
+				],
+				"name": "registerVehicle",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_vehicleId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "_newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_vehicleId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_rentalPrice",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "_isAvailable",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "_hasInsurance",
+						"type": "bool"
+					}
+				],
+				"name": "updateVehicle",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"getVehicle(uint256)": {
+					"params": {
+						"_vehicleId": "The ID of the vehicle"
+					},
+					"returns": {
+						"_0": "Vehicle struct containing vehicle details"
+					}
+				},
+				"isAvailable(uint256)": {
+					"params": {
+						"_vehicleId": "The ID of the vehicle"
+					},
+					"returns": {
+						"_0": "Boolean indicating availability"
+					}
+				},
+				"registerVehicle(uint8,uint256,uint256)": {
+					"params": {
+						"_category": "The category of the vehicle (Car, Bike, Van)",
+						"_maintenanceDueDate": "The next maintenance due date",
+						"_rentalPrice": "The rental price per day for the vehicle"
+					}
+				},
+				"transferOwnership(uint256,address)": {
+					"params": {
+						"_newOwner": "Address of the new owner",
+						"_vehicleId": "The ID of the vehicle to transfer"
+					}
+				},
+				"updateVehicle(uint256,uint256,bool,bool)": {
+					"params": {
+						"_hasInsurance": "Updated insurance status",
+						"_isAvailable": "Updated availability status",
+						"_rentalPrice": "New rental price for the vehicle",
+						"_vehicleId": "The ID of the vehicle to update"
+					}
+				}
+			},
+			"title": "Asset Management Contract",
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"getVehicle(uint256)": {
+					"notice": "Fetches details of a vehicle"
+				},
+				"isAvailable(uint256)": {
+					"notice": "Checks if a vehicle is available for rental"
+				},
+				"registerVehicle(uint8,uint256,uint256)": {
+					"notice": "Registers a new vehicle"
+				},
+				"transferOwnership(uint256,address)": {
+					"notice": "Transfers ownership of a vehicle to a new owner"
+				},
+				"updateVehicle(uint256,uint256,bool,bool)": {
+					"notice": "Updates vehicle details"
+				}
+			},
+			"notice": "Manages vehicle assets for the Vehicle Rental System",
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Asset.sol": "Asset"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Asset.sol": {
+			"keccak256": "0xf9bd3d667d35a106ae57f8662b16f486990a7e1743ce4d00eff67ff2c110bfa9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1abc1369723ea47dc1776ed8419155360e03c1f58c3b58e031cdc8a95a117de3",
+				"dweb:/ipfs/Qmd8dJncdkwnJgLvr16XZxuPDYQSzkd6NLH16pQRg7mYWv"
+			]
+		}
+	},
+	"version": 1
+}

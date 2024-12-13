@@ -1,0 +1,495 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_assetAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_tokenAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_insuranceAddress",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "vehicleId",
+						"type": "uint256"
+					}
+				],
+				"name": "InsuranceRequired",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "NotAdmin",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "rentalId",
+						"type": "uint256"
+					}
+				],
+				"name": "NotRenter",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "rentalId",
+						"type": "uint256"
+					}
+				],
+				"name": "RentalAlreadyCompleted",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "vehicleId",
+						"type": "uint256"
+					}
+				],
+				"name": "VehicleNotAvailable",
+				"type": "error"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "rentalId",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "renter",
+						"type": "address"
+					}
+				],
+				"name": "DisputeRaised",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "rentalId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "refundToRenter",
+						"type": "bool"
+					}
+				],
+				"name": "DisputeResolved",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "rentalId",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "renter",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "vehicleId",
+						"type": "uint256"
+					}
+				],
+				"name": "RentalCompleted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "rentalId",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "renter",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "vehicleId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "escrowAmount",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "startDate",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "endDate",
+						"type": "uint256"
+					}
+				],
+				"name": "RentalInitiated",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_rentalId",
+						"type": "uint256"
+					}
+				],
+				"name": "completeRental",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_rentalId",
+						"type": "uint256"
+					}
+				],
+				"name": "getRental",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "rentalId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "renter",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "vehicleId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "startDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "endDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "escrowAmount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isCompleted",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct VehicleRentalSystem.Rental",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_vehicleId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_rentalDays",
+						"type": "uint256"
+					}
+				],
+				"name": "initiateRental",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_rentalId",
+						"type": "uint256"
+					}
+				],
+				"name": "raiseDispute",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_rentalId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "_refundToRenter",
+						"type": "bool"
+					}
+				],
+				"name": "resolveDispute",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"completeRental(uint256)": {
+					"params": {
+						"_rentalId": "ID of the rental to complete"
+					}
+				},
+				"constructor": {
+					"params": {
+						"_assetAddress": "Address of the Asset contract",
+						"_insuranceAddress": "Address of the Insurance contract",
+						"_tokenAddress": "Address of the VehicleRentalToken contract"
+					}
+				},
+				"getRental(uint256)": {
+					"params": {
+						"_rentalId": "ID of the rental"
+					},
+					"returns": {
+						"_0": "Rental details"
+					}
+				},
+				"initiateRental(uint256,uint256)": {
+					"params": {
+						"_rentalDays": "Number of days for the rental",
+						"_vehicleId": "ID of the vehicle to be rented"
+					}
+				},
+				"raiseDispute(uint256)": {
+					"params": {
+						"_rentalId": "ID of the rental in dispute"
+					}
+				},
+				"resolveDispute(uint256,bool)": {
+					"params": {
+						"_refundToRenter": "Boolean indicating whether to refund the renter",
+						"_rentalId": "ID of the rental in dispute"
+					}
+				}
+			},
+			"title": "Vehicle Rental System",
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"completeRental(uint256)": {
+					"notice": "Completes a rental"
+				},
+				"constructor": {
+					"notice": "Constructor for VehicleRentalSystem"
+				},
+				"getRental(uint256)": {
+					"notice": "Fetches rental details"
+				},
+				"initiateRental(uint256,uint256)": {
+					"notice": "Initiates a rental for a vehicle"
+				},
+				"raiseDispute(uint256)": {
+					"notice": "Raises a dispute for a rental"
+				},
+				"resolveDispute(uint256,bool)": {
+					"notice": "Resolves a dispute"
+				}
+			},
+			"notice": "Implements the core functionality for vehicle rentals",
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"VehicleRentalSystem.sol": "VehicleRentalSystem"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/access/AccessControl.sol": {
+			"keccak256": "0xa0e92d42942f4f57c5be50568dac11e9d00c93efcb458026e18d2d9b9b2e7308",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://46326c0bb1e296b67185e81c918e0b40501b8b6386165855df0a3f3c634b6a80",
+				"dweb:/ipfs/QmTwyrDYtsxsk6pymJTK94PnEpzsmkpUxFuzEiakDopy4Z"
+			]
+		},
+		"@openzeppelin/contracts/access/IAccessControl.sol": {
+			"keccak256": "0xc1c2a7f1563b77050dc6d507db9f4ada5d042c1f6a9ddbffdc49c77cdc0a1606",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://fd54abb96a6156d9a761f6fdad1d3004bc48d2d4fce47f40a3f91a7ae83fc3a1",
+				"dweb:/ipfs/QmUrFSGkTDJ7WaZ6qPVVe3Gn5uN2viPb7x7QQ35UX4DofX"
+			]
+		},
+		"@openzeppelin/contracts/interfaces/draft-IERC6093.sol": {
+			"keccak256": "0x880da465c203cec76b10d72dbd87c80f387df4102274f23eea1f9c9b0918792b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://399594cd8bb0143bc9e55e0f1d071d0d8c850a394fb7a319d50edd55d9ed822b",
+				"dweb:/ipfs/QmbPZzgtT6LEm9CMqWfagQFwETbV1ztpECBB1DtQHrKiRz"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/ERC20.sol": {
+			"keccak256": "0xbf61ab2ae1d575a17ea58fbb99ca232baddcc4e0eeea180e84cbc74b0c348b31",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://4e0968705bad99747a8e5288aa008678c2be2f471f919dce3925a3cc4f1dee09",
+				"dweb:/ipfs/QmbAFnCQfo4tw6ssfQSjhA5LzwHWNNryXN8bX7ty8jiqqn"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0xe06a3f08a987af6ad2e1c1e774405d4fe08f1694b67517438b467cecf0da0ef7",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://df6f0c459663c9858b6cba2cda1d14a7d05a985bed6d2de72bd8e78c25ee79db",
+				"dweb:/ipfs/QmeTTxZ7qVk9rjEv2R4CpCwdf8UMCcRqDNMvzNxHc3Fnn9"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
+			"keccak256": "0x70f2f713b13b7ce4610bcd0ac9fec0f3cc43693b043abcb8dc40a42a726eb330",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://c13d13304ac79a83ab1c30168967d19e2203342ebbd6a9bbce4db7550522dcbf",
+				"dweb:/ipfs/QmeN5jKMN2vw5bhacr6tkg78afbTTZUeaacNHqjWt4Ew1r"
+			]
+		},
+		"@openzeppelin/contracts/utils/Context.sol": {
+			"keccak256": "0x493033a8d1b176a037b2cc6a04dad01a5c157722049bbecf632ca876224dd4b2",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6a708e8a5bdb1011c2c381c9a5cfd8a9a956d7d0a9dc1bd8bcdaf52f76ef2f12",
+				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
+			]
+		},
+		"@openzeppelin/contracts/utils/introspection/ERC165.sol": {
+			"keccak256": "0xddce8e17e3d3f9ed818b4f4c4478a8262aab8b11ed322f1bf5ed705bb4bd97fa",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8084aa71a4cc7d2980972412a88fe4f114869faea3fefa5436431644eb5c0287",
+				"dweb:/ipfs/Qmbqfs5dRdPvHVKY8kTaeyc65NdqXRQwRK7h9s5UJEhD1p"
+			]
+		},
+		"@openzeppelin/contracts/utils/introspection/IERC165.sol": {
+			"keccak256": "0x79796192ec90263f21b464d5bc90b777a525971d3de8232be80d9c4f9fb353b8",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://f6fda447a62815e8064f47eff0dd1cf58d9207ad69b5d32280f8d7ed1d1e4621",
+				"dweb:/ipfs/QmfDRc7pxfaXB2Dh9np5Uf29Na3pQ7tafRS684wd3GLjVL"
+			]
+		},
+		"Asset.sol": {
+			"keccak256": "0xf9bd3d667d35a106ae57f8662b16f486990a7e1743ce4d00eff67ff2c110bfa9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1abc1369723ea47dc1776ed8419155360e03c1f58c3b58e031cdc8a95a117de3",
+				"dweb:/ipfs/Qmd8dJncdkwnJgLvr16XZxuPDYQSzkd6NLH16pQRg7mYWv"
+			]
+		},
+		"Insurance.sol": {
+			"keccak256": "0x56cb72ae4e39833fc0a4d8f2e7a2545f5d21ba14f27ee4b956584de580c6a4d8",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://bd19944c96914b522c23bf2bb87ac9c776722db9e5682c8d15ae5ade853e0270",
+				"dweb:/ipfs/QmWTEFhvtE4f2vbDb5g2XR14hD3LD2nvFXzfBDHdkqG9Hw"
+			]
+		},
+		"VehicleRentalSystem.sol": {
+			"keccak256": "0xaf9c262f8704b75d667de4b49c80972aae0c29433f2f84a0733f8fe735d3b436",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://606ae1d6708d946abf2473a9112523c6500ecbfbddb09dc57b89c6f2b152557d",
+				"dweb:/ipfs/QmUHsfthf4bu9vymp9S8WmDMwxYEnncDgDJEHtGya8Zz4D"
+			]
+		},
+		"VehicleRentalToken.sol": {
+			"keccak256": "0x89851e4be018ea429ffb3e7c771bc6b12ff93c98dfe633fd20f167fd59c067e4",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://15e61c1c33c9c2c2a543ebc4a02164ab203039a29f46f010a4b5bd007323f5d4",
+				"dweb:/ipfs/QmS9P33xr91DGpESUpy9ApAtXPa1zsa1QJrJUMAB9vR5jZ"
+			]
+		}
+	},
+	"version": 1
+}

@@ -1,0 +1,363 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "claimAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "coverageRemaining",
+						"type": "uint256"
+					}
+				],
+				"name": "ClaimExceedsCoverage",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "policyId",
+						"type": "uint256"
+					}
+				],
+				"name": "NotPolicyOwner",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "policyId",
+						"type": "uint256"
+					}
+				],
+				"name": "PolicyExpired",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "policyId",
+						"type": "uint256"
+					}
+				],
+				"name": "PolicyNotActive",
+				"type": "error"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "policyId",
+						"type": "uint256"
+					}
+				],
+				"name": "PolicyCancelled",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "policyId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "claimAmount",
+						"type": "uint256"
+					}
+				],
+				"name": "PolicyClaimed",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "policyId",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "vehicleOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "vehicleId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "premium",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "coverageAmount",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "expirationDate",
+						"type": "uint256"
+					}
+				],
+				"name": "PolicyPurchased",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_policyId",
+						"type": "uint256"
+					}
+				],
+				"name": "cancelPolicy",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_policyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_claimAmount",
+						"type": "uint256"
+					}
+				],
+				"name": "claimPolicy",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_policyId",
+						"type": "uint256"
+					}
+				],
+				"name": "getPolicy",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "policyId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "vehicleOwner",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "vehicleId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "premium",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "coverageAmount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "expirationDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isActive",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Insurance.Policy",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_vehicleId",
+						"type": "uint256"
+					}
+				],
+				"name": "hasActivePolicy",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_vehicleId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_premium",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_coverageAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_duration",
+						"type": "uint256"
+					}
+				],
+				"name": "purchasePolicy",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"cancelPolicy(uint256)": {
+					"params": {
+						"_policyId": "The ID of the policy being canceled"
+					}
+				},
+				"claimPolicy(uint256,uint256)": {
+					"params": {
+						"_claimAmount": "The amount being claimed in ETH",
+						"_policyId": "The ID of the policy being claimed"
+					}
+				},
+				"getPolicy(uint256)": {
+					"params": {
+						"_policyId": "The ID of the policy"
+					},
+					"returns": {
+						"_0": "Policy details"
+					}
+				},
+				"hasActivePolicy(uint256)": {
+					"params": {
+						"_vehicleId": "The ID of the vehicle"
+					},
+					"returns": {
+						"_0": "Boolean indicating if the vehicle has an active policy"
+					}
+				},
+				"purchasePolicy(uint256,uint256,uint256,uint256)": {
+					"params": {
+						"_coverageAmount": "The maximum coverage amount in ETH",
+						"_duration": "The duration of the policy in seconds",
+						"_premium": "The premium amount in ETH",
+						"_vehicleId": "The ID of the vehicle being insured"
+					}
+				}
+			},
+			"title": "Insurance Management Contract",
+			"version": 1
+		},
+		"userdoc": {
+			"events": {
+				"PolicyPurchased(uint256,address,uint256,uint256,uint256,uint256)": {
+					"notice": "Emitted when a new insurance policy is purchased"
+				}
+			},
+			"kind": "user",
+			"methods": {
+				"cancelPolicy(uint256)": {
+					"notice": "Cancels an insurance policy"
+				},
+				"claimPolicy(uint256,uint256)": {
+					"notice": "Claims an insurance policy"
+				},
+				"getPolicy(uint256)": {
+					"notice": "Retrieves the details of a policy"
+				},
+				"hasActivePolicy(uint256)": {
+					"notice": "Checks if a vehicle has an active policy"
+				},
+				"purchasePolicy(uint256,uint256,uint256,uint256)": {
+					"notice": "Purchases an insurance policy for a vehicle"
+				}
+			},
+			"notice": "Manages insurance policies for vehicles in the Vehicle Rental System",
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Insurance.sol": "Insurance"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Insurance.sol": {
+			"keccak256": "0x56cb72ae4e39833fc0a4d8f2e7a2545f5d21ba14f27ee4b956584de580c6a4d8",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://bd19944c96914b522c23bf2bb87ac9c776722db9e5682c8d15ae5ade853e0270",
+				"dweb:/ipfs/QmWTEFhvtE4f2vbDb5g2XR14hD3LD2nvFXzfBDHdkqG9Hw"
+			]
+		}
+	},
+	"version": 1
+}
